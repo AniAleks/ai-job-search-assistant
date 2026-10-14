@@ -5,7 +5,7 @@ const EnvSchema = z.object({
   MONGODB_URI: z.string().min(1).default("mongodb://localhost:27017/job-search"),
   // Optional: the Anthropic SDK also picks up ANTHROPIC_AUTH_TOKEN or an `ant auth login` profile.
   ANTHROPIC_API_KEY: z.string().optional(),
-  CLAUDE_MODEL: z.string().min(1).default("claude-opus-5-5"),
+  CLAUDE_MODEL: z.string().min(1).default("claude-sonnet-5"),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

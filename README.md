@@ -18,7 +18,7 @@ There is also a chat endpoint where you can ask about your applications or updat
 | Fit score, tailored bullets, cover note | `POST /analyses` | **Structured outputs.** One call returns JSON that is validated against a Zod schema (`src/analysis/job-analysis.schema.ts`). |
 | Chat over your applications | `POST /assistant` | **Tool use.** The SDK tool runner lets Claude call `list_applications`, `get_application` and `update_application` (`src/assistant/application-tools.ts`). |
 
-Both endpoints use `claude-opus-5-5` by default (override with `CLAUDE_MODEL`). They also turn on server-side refusal fallbacks, and they return 422 or 502 when Claude refuses or its output is unusable.
+Both endpoints use `claude-sonnet-5` by default (override with `CLAUDE_MODEL`). They also turn on server-side refusal fallbacks, and they return 422 or 502 when Claude refuses or its output is unusable.
 
 ## Getting started
 
