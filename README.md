@@ -40,6 +40,19 @@ Other scripts:
 
 The tests mock Claude, so they never call the real API. The end-to-end test uses `MONGODB_TEST_URI` if it is set, and otherwise downloads and starts an in-memory MongoDB.
 
+## Frontend
+
+A React (Vite + TypeScript) UI lives in `frontend/`: manage resumes, analyze a posting, track applications (fit score, tailored bullets, cover note, status, notes), and chat with the assistant.
+
+```bash
+cd frontend
+cp .env.example .env     # VITE_API_BASE_URL, defaults to http://localhost:3000
+npm install
+npm run dev               # http://localhost:5173
+```
+
+It talks to the API in this repo over plain `fetch`; the backend has CORS enabled (`app.enableCors()` in `src/main.ts`) so the two can run on different ports in development.
+
 ## API
 
 ```bash
@@ -81,4 +94,5 @@ src/
   resumes/       Resume storage (Mongo)
   claude/        Anthropic client and model configuration
   common/        Validation pipes, Claude error mapping
+frontend/        React UI (Vite + TypeScript) for the API above
 ```
