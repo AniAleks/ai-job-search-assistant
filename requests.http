@@ -1,0 +1,84 @@
+### AI Job Search Assistant — REST Client requests
+### Requires the "REST Client" VS Code extension (humao.rest-client).
+### Run the server first: npm run start:dev (defaults to http://localhost:3000)
+
+@baseUrl = http://localhost:3000
+
+
+### Health check
+GET {{baseUrl}}/health
+
+
+### Create a resume
+# @name createResume
+POST {{baseUrl}}/resumes
+Content-Type: application/json
+
+{
+  "name": "Jane Doe — Backend Engineer",
+  "content": "Jane Doe — Backend Engineer\nExperience\n- Built an internal HR tool in Node.js that automated onboarding for 300 employees.\n- Designed REST APIs backed by MongoDB serving 2M requests per day.\n- Mentored two junior developers."
+}
+
+###
+@resumeId = {{createResume.response.body.$._id}}
+
+
+### List all resumes
+GET {{baseUrl}}/resumes
+
+
+### Get a single resume
+GET {{baseUrl}}/resumes/{{resumeId}}
+
+
+### Analyze a job posting against the resume (also creates an application)
+# @name analyzeJob
+POST {{baseUrl}}/analyses
+Content-Type: application/json
+
+{
+  "resumeId": "{{resumeId}}",
+  "jobPosting": "Acme Corp is hiring a Senior Backend Engineer (NestJS).\nRequirements: 5+ years TypeScript/Node.js, NestJS, MongoDB, AWS, experience building internal tools.\nNice to have: LLM / AI product experience."
+}
+
+###
+@applicationId = {{analyzeJob.response.body.$._id}}
+
+
+### List all applications
+GET {{baseUrl}}/applications
+
+
+### List applications filtered by status
+GET {{baseUrl}}/applications?status=saved
+
+
+### Get a single application
+GET {{baseUrl}}/applications/{{applicationId}}
+
+
+### Update an application (status and/or note)
+PATCH {{baseUrl}}/applications/{{applicationId}}
+Content-Type: application/json
+
+{
+  "status": "applied",
+  "note": "Submitted via the company careers page."
+}
+
+
+### Chat with the assistant
+POST {{baseUrl}}/assistant
+Content-Type: application/json
+
+{
+  "message": "What's the status of my application to Acme Corp?"
+}
+
+
+### Delete the application
+DELETE {{baseUrl}}/applications/{{applicationId}}
+
+
+### Delete the resume
+DELETE {{baseUrl}}/resumes/{{resumeId}}
