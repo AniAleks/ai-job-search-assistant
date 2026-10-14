@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AnthropicExceptionFilter());
   app.enableShutdownHooks();
   const port = app.get(ConfigService<Env, true>).get("PORT", { infer: true });
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
 }
 
 void bootstrap();
