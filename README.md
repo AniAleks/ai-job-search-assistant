@@ -51,7 +51,7 @@ npm install
 npm run dev               # http://localhost:5173
 ```
 
-It talks to the API in this repo over plain `fetch`; the backend has CORS enabled (`app.enableCors()` in `src/main.ts`) so the two can run on different ports in development.
+It talks to the API in this repo over plain `fetch`; the backend only accepts browser requests from origins listed in `CORS_ORIGINS` (comma-separated, defaults to `http://localhost:5173`).
 
 ## API
 

@@ -6,6 +6,11 @@ const EnvSchema = z.object({
   // Optional: the Anthropic SDK also picks up ANTHROPIC_AUTH_TOKEN or an `ant auth login` profile.
   ANTHROPIC_API_KEY: z.string().optional(),
   CLAUDE_MODEL: z.string().min(1).default("claude-sonnet-5"),
+  // Comma-separated list of browser origins allowed to call the API.
+  CORS_ORIGINS: z
+    .string()
+    .default("http://localhost:5173")
+    .transform((v) => v.split(",").map((o) => o.trim()).filter(Boolean)),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

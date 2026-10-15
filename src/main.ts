@@ -7,10 +7,11 @@ import type { Env } from "./config.js";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  const config = app.get(ConfigService<Env, true>);
+  app.enableCors({ origin: config.get("CORS_ORIGINS", { infer: true }) });
   app.useGlobalFilters(new AnthropicExceptionFilter());
   app.enableShutdownHooks();
-  const port = app.get(ConfigService<Env, true>).get("PORT", { infer: true });
+  const port = config.get("PORT", { infer: true });
   await app.listen(port, "0.0.0.0");
 }
 
